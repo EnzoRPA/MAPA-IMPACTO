@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          var currentFetch = window.fetch ? window.fetch.bind(window) : undefined;
+          var getFetch = function() { return currentFetch; };
+          var setFetch = function(val) { currentFetch = val; };
+
+          try {
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: getFetch,
+              set: setFetch
+            });
+          } catch (err1) {}
+
+          try {
+            var proto = Object.getPrototypeOf(window) || (window.constructor && window.constructor.prototype);
+            if (proto) {
+              Object.defineProperty(proto, 'fetch', {
+                configurable: true,
+                enumerable: true,
+                get: getFetch,
+                set: setFetch
+              });
+            }
+          } catch (err2) {}
+        } catch (e) {}
+
+        // Suppress benign chrome-extension noise from bubbling to parent window
+        window.addEventListener('error', function(event) {
+          if (event.filename && event.filename.includes('chrome-extension://')) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+      })();
+    </script>
+    <title>Mapeamento Missionário - Rotas & Territórios</title>
+    <meta name="description" content="Sistema de mapeamento territorial e roteamento para duplas missionárias, com traçado de ruas, estimativa de residências e exportação em JPG e PDF." />
+    <meta property="og:title" content="Mapeamento Missionário - Rotas & Territórios" />
+    <meta property="og:description" content="Sistema de mapeamento territorial e roteamento para duplas missionárias, com traçado de ruas, estimativa de residências e exportação em JPG e PDF." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
+    <!-- Google Fonts: Plus Jakarta Sans & DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-neutral-50 text-neutral-900 antialiased font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

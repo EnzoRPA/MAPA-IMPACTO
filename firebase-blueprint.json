@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "Church": {
+      "title": "Church",
+      "description": "Church or congregation headquarters for the missionary campaign",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "leaderName": { "type": "string" },
+        "bookTitle": { "type": "string" },
+        "campaignDate": { "type": "string" }
+      },
+      "required": ["name", "address", "lat", "lng", "leaderName", "bookTitle", "campaignDate"]
+    },
+    "MissionaryPair": {
+      "title": "MissionaryPair",
+      "description": "Missionary pair assigned to territories",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "members": { "type": "array" },
+        "phone": { "type": "string" },
+        "color": { "type": "string" },
+        "targetBooks": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "name", "members", "phone", "color", "targetBooks"]
+    },
+    "RouteCorridor": {
+      "title": "RouteCorridor",
+      "description": "Street corridor route mapped for missionary dispatch",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "pairId": { "type": "string" },
+        "coordinates": { "type": "array" },
+        "strokeStyle": { "type": "string" },
+        "color": { "type": "string" },
+        "weight": { "type": "number" },
+        "lengthMeters": { "type": "number" },
+        "densityType": { "type": "string" },
+        "estimatedHouses": { "type": "number" },
+        "customHouseCount": { "type": "number" },
+        "status": { "type": "string" },
+        "notes": { "type": "string" },
+        "osmBuildingCount": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "coordinates", "strokeStyle", "color", "weight", "lengthMeters", "densityType", "estimatedHouses", "status", "notes", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/church/{churchId}": {
+      "schema": "Church",
+      "description": "Church campaign settings and coordinates"
+    },
+    "/pairs/{pairId}": {
+      "schema": "MissionaryPair",
+      "description": "Missionary pairs roster"
+    },
+    "/routes/{routeId}": {
+      "schema": "RouteCorridor",
+      "description": "Mapped street routes and corridors"
+    }
+  }
+}

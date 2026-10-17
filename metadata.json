@@ -1,0 +1,10 @@
+{
+  "name": "Remix Mapeamento Missionário - Rotas \u0026 Territórios",
+  "description": "Sistema de mapeamento territorial e roteamento para duplas missionárias, com traçado de ruas, estimativa de residências e exportação em JPG e PDF.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

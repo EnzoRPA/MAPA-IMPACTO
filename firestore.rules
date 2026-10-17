@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 64;
+    }
+
+    match /church/{churchId} {
+      allow read: if true;
+      allow write: if isValidId(churchId);
+    }
+
+    match /pairs/{pairId} {
+      allow read: if true;
+      allow write: if isValidId(pairId);
+    }
+
+    match /routes/{routeId} {
+      allow read: if true;
+      allow write: if isValidId(routeId);
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
